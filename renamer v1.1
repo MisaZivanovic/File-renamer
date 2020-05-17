@@ -2,6 +2,9 @@ import os
 
 path = 'D:\\Engleski materijal\\Kurs Engl\\Materijal'
 
+ext = ".png"
+pattern_name = "download"
+
 def rinejm(file,file_list):
     for item in file_list:
         file=file.replace(item,"")
@@ -10,30 +13,29 @@ def rinejm(file,file_list):
 dikt={}
 # r=root, d=directories, f = files
 for r, d, f in os.walk(path):
-    file_list=["download",
+    file_list=[pattern_name,
                 "(",
                 ")",
-                ".png"
+                ext
     ]
     for file in f:
-        if '.png' in file:
-            if "download" in file:
-                file1=str(os.path.join(r, file))
-                if file == "download.png":
-                    file = "01.png"
-                    
+        if ext in file and pattern_name in file:
+            file1=str(os.path.join(r, file))
+            if file == pattern_name+ext:
+                file = "01"+ext
+
+            else:
+                file=rinejm(file,file_list)
+                file+=1
+
+                if len(str(file)) == 2:
+                    file= str(file)+ext
+
                 else:
-                    file=rinejm(file,file_list)
-                    file+=1
-                    
-                    if len(str(file)) == 2:
-                        file= str(file)+".png"
-                        
-                    else:
-                        
-                        file = "0"+str(file)+".png"
-                dikt.update( {file1 : str((os.path.join(r, file)))} )
-                
+
+                    file = "0"+str(file)+ext
+            dikt.update( {file1 : str((os.path.join(r, file)))} )
+
 
 for k,v in dikt.items():
     os.rename(k,v)

@@ -8,9 +8,8 @@ for r, d, f in os.walk(path):
     for file in f:
         if '.png' in file:
             if "download" in file:
-                folders.append(os.path.join(r, file))
                 file1=str(os.path.join(r, file))
-                #print(file1)
+                
                 if file == "download.png":
                     file = "01.png"
                 else:

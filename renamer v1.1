@@ -1,0 +1,39 @@
+import os
+
+path = 'D:\\Engleski materijal\\Kurs Engl\\Materijal'
+
+def rinejm(file,file_list):
+    for item in file_list:
+        file=file.replace(item,"")
+    return int(file)
+
+dikt={}
+# r=root, d=directories, f = files
+for r, d, f in os.walk(path):
+    file_list=["download",
+                "(",
+                ")",
+                ".png"
+    ]
+    for file in f:
+        if '.png' in file:
+            if "download" in file:
+                file1=str(os.path.join(r, file))
+                if file == "download.png":
+                    file = "01.png"
+                    
+                else:
+                    file=rinejm(file,file_list)
+                    file+=1
+                    
+                    if len(str(file)) == 2:
+                        file= str(file)+".png"
+                        
+                    else:
+                        
+                        file = "0"+str(file)+".png"
+                dikt.update( {file1 : str((os.path.join(r, file)))} )
+                
+
+for k,v in dikt.items():
+    os.rename(k,v)
